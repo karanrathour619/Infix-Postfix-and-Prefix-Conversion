@@ -1,0 +1,38 @@
+/*
+stack<string> st;
+Traverse the prefix string from right to left.
+For each symbol:
+    If it is an operand: push it to stack.  
+    If it is an operator: Pop two operands from stack.
+Form: ( + operand1 + operator + operand2 + )
+Push the new string back to the stack.
+return st.top();
+*/
+
+bool isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
+}
+
+string prefixToInfixConversion(string &pre) {
+    stack<string> st;
+
+    for (int i = pre.length() - 1; i >= 0; i--) {  //UTLTA TRAVERSE KRTE HAIN
+        char ch = pre[i];
+
+        if (isalnum(ch)) {
+            string op = "";
+            op += ch;
+            st.push(op);
+        }
+        else if (isOperator(ch)) {
+            string a = st.top(); 
+            st.pop();
+            string b = st.top(); 
+            st.pop();
+            
+            string expr = "(" + a + ch + b + ")";
+            st.push(expr);
+        }
+    }
+    return st.top();
+}
