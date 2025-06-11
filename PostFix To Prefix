@@ -1,0 +1,24 @@
+#include<stack>
+
+string postfixToPrefix(string &s){
+    int n = s.size();
+    stack<string> st;
+
+    for(auto ch : s){
+        if(isalnum(ch)){
+            string op = "";
+            op += ch;
+            st.push(op);
+        }
+        else{
+            auto a = st.top();
+            st.pop();
+            auto b = st.top();
+            st.pop();
+
+            string temp = ch + b + a;
+            st.push(temp);
+        }
+    }
+    return st.top();
+}
