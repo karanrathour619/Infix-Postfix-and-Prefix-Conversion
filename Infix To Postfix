@@ -1,0 +1,48 @@
+#include <stack>
+int priority(char x){
+	if(x=='(' || x==')') return 0;
+	if(x=='+' || x=='-') return 1;
+	if(x=='*' || x=='/') return 2;
+	if(x=='^') return 3;
+	return -1;
+}
+
+string infixToPostfix(string s){
+	int n = s.length();
+	stack<char>st;
+	string res = "";
+
+	for(int i=0; i<n; i++){
+
+		// If digit or lowercase letter, add to result
+		if(isalnum(s[i]))
+			res += s[i];
+
+		else if(s[i]=='(')
+			st.push(s[i]);
+
+		else if(s[i] == ')'){
+			// pop until '('
+			while(!st.empty() && st.top() != '('){
+				res += st.top();
+				st.pop();
+			}
+			if(!st.empty())
+				st.pop();
+		}
+		else{
+			// operand : pop while priority >=
+			while(!st.empty() && priority(st.top()) >= priority(s[i])){
+				res += st.top();
+				st.pop();
+			} 
+			st.push(s[i]);
+		}
+	}
+	// Pop any remaining operators
+	while (!st.empty()) {
+		res += st.top();
+		st.pop();
+	}
+	return res;
+}
