@@ -1,0 +1,32 @@
+bool isOperator(char ch) {
+    return (ch == '+' || ch == '-' || 
+    ch == '*' || ch == '/' || ch == '^');
+}
+int operatorPrecedence(char op) {
+    if (op == '^') return 3;
+    if (op == '*' || op == '/') return 2;
+    if (op == '+' || op == '-') return 1;
+    return -1;
+}
+
+// 1 => Convert infix expression to postfix notation
+
+// 2 => Convert infix expression to prefix notation
+
+string convertToPrefix(string infix) {
+    reverse(infix.begin(), infix.end());   // REVERSE KRO PHLE
+
+    for (int i = 0; i < infix.size(); i++) {    // '(' => ')' AND vice-versa
+        if (infix[i] == '(') {
+            infix[i] = ')';
+        } else if (infix[i] == ')') {
+            infix[i] = '(';
+        }
+    }
+
+    string postfix = convertInfixToPostfix(infix);    //  convert infix to postfix
+
+    reverse(postfix.begin(), postfix.end());    // reverse the expression
+
+    return postfix;    // return it
+}
