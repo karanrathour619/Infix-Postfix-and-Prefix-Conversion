@@ -9,9 +9,10 @@ int operatorPrecedence(char op) {
     return -1;
 }
 
-// 1 => Convert infix expression to postfix notation
-
-// 2 => Convert infix expression to prefix notation
+// 1=> Reverse the infix expression. 
+// 2=> Swap every "(" with ")" and vice versa. 
+// 3=> Convert the reversed expression to postfix (using the same algorithm as before). 
+// 4=> Reverse the postfix expression to get prefix.
 
 string convertToPrefix(string infix) {
     reverse(infix.begin(), infix.end());   // REVERSE KRO PHLE
